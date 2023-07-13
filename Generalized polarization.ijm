@@ -2,7 +2,7 @@ ScreenClean();
 
 getDateAndTime(year, month, dayofWeek, dayofMonth, hour, minute, second, msec);
 
-file_extension = "tif";
+file_extension = "lsm";
 
 
 dir = getDirectory("Choose directory");
@@ -42,16 +42,22 @@ Stack.getDimensions(width, height, channels, slices, frames);
 
 Dialog.show();
 
-green_name= "C" + Dialog.getChoice() + "-raw_data";
-red_name= "C" + Dialog.getChoice() + "-raw_data";
+green_number = Dialog.getChoice();
+red_number = Dialog.getChoice();
+
+green_name= "C" + green_number + "-raw_data";
+red_name= "C" + red_number + "-raw_data";
 
 	//green_chan = Dialog.getChoice();
 	//red_chan = Dialog.getChoice();
 rename ("raw_data");
 
-run("Split Channels");
+//run("Split Channels");
 
-selectWindow(green_name);
+run("Duplicate...", "duplicate channels=3-3");
+rename(green_name);
+
+
 
 run("Enhance Contrast...", "saturated=0.0 normalize process_all");
 run("32-bit");
@@ -68,7 +74,10 @@ Dialog.show();
 green_bottom=Dialog.getNumber();
 green_top=Dialog.getNumber();
 
-selectWindow(red_name);
+selectWindow("raw_data");
+
+run("Duplicate...", "duplicate channels=red_number-red_number");
+rename(red_name);
 
 run("Enhance Contrast...", "saturated=0.0 normalize process_all");
 run("32-bit");
