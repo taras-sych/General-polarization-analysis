@@ -54,7 +54,7 @@ rename ("raw_data");
 
 //run("Split Channels");
 
-run("Duplicate...", "duplicate channels=3-3");
+run("Duplicate...", "duplicate range=green_number-green_number");
 rename(green_name);
 
 
@@ -76,7 +76,7 @@ green_top=Dialog.getNumber();
 
 selectWindow("raw_data");
 
-run("Duplicate...", "duplicate channels=red_number-red_number");
+run("Duplicate...", "duplicate range=red_number-red_number");
 rename(red_name);
 
 run("Enhance Contrast...", "saturated=0.0 normalize process_all");
@@ -122,7 +122,13 @@ for (number_of_file = 0; number_of_file<list.length; number_of_file++){
 			
 			rename ("raw_data");
 
-			run("Split Channels");
+			run("Duplicate...", "duplicate range=green_number-green_number");
+			rename(green_name);
+			
+			selectWindow ("raw_data");
+			
+			run("Duplicate...", "duplicate range=red_number-red_number");
+			rename(red_name);
 			
 //run("Rename...", "title=blue");
 //blue_ID=getImageID();
