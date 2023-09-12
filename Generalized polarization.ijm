@@ -2,7 +2,7 @@ ScreenClean();
 
 getDateAndTime(year, month, dayofWeek, dayofMonth, hour, minute, second, msec);
 
-file_extension = "lsm";
+file_extension = "czi";
 
 
 dir = getDirectory("Choose directory");
@@ -54,7 +54,9 @@ rename ("raw_data");
 
 //run("Split Channels");
 
-run("Duplicate...", "duplicate range=green_number-green_number");
+run("Duplicate...", "duplicate channels=green_number");
+
+//run("Duplicate...", "duplicate range=green_number-green_number");
 rename(green_name);
 
 
@@ -76,7 +78,10 @@ green_top=Dialog.getNumber();
 
 selectWindow("raw_data");
 
-run("Duplicate...", "duplicate range=red_number-red_number");
+
+run("Duplicate...", "duplicate channels=red_number");
+
+//run("Duplicate...", "duplicate range=red_number-red_number");
 rename(red_name);
 
 run("Enhance Contrast...", "saturated=0.0 normalize process_all");
@@ -106,7 +111,7 @@ print(green_top);*/
 }
 
 ScreenClean();
-setBatchMode(true);
+setBatchMode(false);
 
 for (number_of_file = 0; number_of_file<list.length; number_of_file++){
 		if (endsWith(list[number_of_file],file_extension) == 1){
@@ -121,13 +126,15 @@ for (number_of_file = 0; number_of_file<list.length; number_of_file++){
 			title=getTitle();
 			
 			rename ("raw_data");
-
-			run("Duplicate...", "duplicate range=green_number-green_number");
+			
+			run("Duplicate...", "duplicate channels=green_number");
+			//run("Duplicate...", "duplicate range=green_number-green_number");
 			rename(green_name);
 			
 			selectWindow ("raw_data");
 			
-			run("Duplicate...", "duplicate range=red_number-red_number");
+			run("Duplicate...", "duplicate channels=red_number");
+			//run("Duplicate...", "duplicate range=red_number-red_number");
 			rename(red_name);
 			
 //run("Rename...", "title=blue");
